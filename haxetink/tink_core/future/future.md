@@ -25,7 +25,7 @@ class Main {
 }
 ```
 
-The getValue function receives a message, a delay and a callback. After the number of milliseconds specified in 'delay' have passed the callback function is called with the message.
+The getValue function receives a message, a delay and a callback. After the number of milliseconds specified in 'delay' have passed, the callback function is called with the message.
 
 The main function first calls 'getValue' with the message "World!" and delay 500ms, then with "Hello" and delay 250. The callback just traces the result. 'Hello' is traced first because the delay is shorter.
 
@@ -57,7 +57,7 @@ class Main {
 ```
 
 What has changed?  
-The getValue function only gets the message and the delay. It returns a Future which can be processed later with 'handle'.
+The getValue function only gets the message and the delay. An async Future is created by defining a function to serve as callback. It returns a Future which can be processed with 'handle'.
 
 The output is the same
 ```
@@ -212,7 +212,7 @@ And the output is
 src/Main.hx:15: h.... WORLD!
 ```
 
-## 08 multiple ofMany
+## 08 Multiple ofMany
 
 ```haxe
 import haxe.Timer;
@@ -253,3 +253,95 @@ src/Main.hx:16: Hello World!
 src/Main.hx:22: Hello World! - Hello You!
 ```
 
+## 09 Sync and async values
+
+```haxe
+import haxe.Timer;
+using tink.CoreApi;
+
+class Main {
+	static function main() {
+		
+		getAsyncValue( "World!", 500 ).handle( s -> trace( s ));
+		getSyncValue( "Hello" ).handle( s -> trace( s ));
+	}
+	
+	static function getAsyncValue( message:String, delay:Int ) {
+		return Future.async( callback -> Timer.delay(() -> callback( message ), delay ));
+	}
+
+	static function getSyncValue( message:String )  {
+		return Future.sync( message );
+	}
+}
+```
+
+Futures don't have to be asynchronous. You can also handle synchronous values in exactly the same way.
+
+## 10 Lazy
+
+```haxe
+import haxe.Timer;
+using tink.CoreApi;
+
+class Main {
+	
+	static function main() {
+		
+		getValueWithTrace( "World!", 500, true );
+		getValueWithTrace( "Hello", 250, false );
+	}
+
+	static function getValueWithTrace( message:String, delay:Int, lazy:Bool ) {
+		return Future.async(
+			callback -> Timer.delay(() -> {	
+				trace( "delay for " + message + " is completed" );
+				callback( message ); }, delay ),
+			lazy );
+	}
+}
+```
+
+Future.async has the optional parameter 'lazy'.   
+If lazy is false the callback definition of the Future is called right after it is defined.  
+If lazy is true is only called after there is a handler for the Future.
+
+In this example there are no handlers for both futures but the timer for "Hello" is executed and completed.
+
+The output is
+```
+src/Main.hx:15: delay for Hello is completed
+```
+
+## 11 Outcome
+
+```haxe
+using tink.CoreApi;
+
+class Main {
+	static function main() {
+		
+		final handleOutcome = function( o:Outcome<String, String> ) {
+			switch o {
+				case Success(data): trace( data + " is a success" );
+				case Failure(failure): trace( failure + " is a failure" );
+			}
+		}
+
+		getSyncValue( "Joy", true ).handle( o -> handleOutcome( o ));
+		getSyncValue( "Fifi Trixiebell", false ).handle( o -> handleOutcome( o ));
+	}
+
+	static function getSyncValue( name:String, isSuccess:Bool ) {
+		return Future.sync( isSuccess ? Success( name ) : Failure( name ));
+	}
+}
+```
+
+When the Future should be able to have multiple states e.g. if it can fail, we use an enum as return value. The tink_core Outcome is well suited for this. The handle function then must be able to handle the states.
+
+The output is
+```
+src/Main.hx:8: Joy is a success
+src/Main.hx:9: Fifi Trixiebell is a failure
+```
