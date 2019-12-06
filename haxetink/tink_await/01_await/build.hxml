@@ -1,0 +1,5 @@
+-lib tink_await
+-cp src
+-D analyzer-optimize
+-main Main
+--interp

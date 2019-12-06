@@ -35,7 +35,7 @@ src/Main.hx:8: Hello
 src/Main.hx:7: World!
 ```
 
-Now let's create the exact same program with futures
+Now let's create the exact same program with Futures
 
 ## 02 Same thing with Futures
 
