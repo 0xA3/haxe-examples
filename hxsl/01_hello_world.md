@@ -4,7 +4,7 @@
 The [first example](https://thebookofshaders.com/02/) from The Book of Shaders just displays a single color on the screen. 
 
 To recreate that in Heaps we first create a new application with an init method. The ```init``` method creates a new 
-fullscreen bitmap and adds the class ```BaseShader```.
+fullscreen bitmap and adds the class ```MainShader```.
 
 ```haxe
 class Main extends hxd.App {
@@ -15,17 +15,17 @@ class Main extends hxd.App {
 
 	override function init() {
 		var bmp = new Bitmap( Tile.fromColor( 0, s2d.width, s2d.height ), s2d );
-		var shader = new BaseShader();
+		var shader = new MainShader();
 		bmp.addShader( shader );
 	}
 }
 ```
  
-We create a new class BaseShader that extends hxsl.Shader.  
+We create a new class MainShader that extends hxsl.Shader.  
 A shader class only has one static variable SRC that contains all the code for the shader.
 
 ```haxe
-class BaseShader extends hxsl.Shader {
+class MainShader extends hxsl.Shader {
 	
 	static var SRC = {
 		@:import h3d.shader.Base2d;
@@ -55,4 +55,4 @@ function fragment() {
 
 ___
 
-[Previous](hxsl.md) ·  [Home](hxsl.md) · Next
+[Previous](hxsl.md) ·  [Home](hxsl.md) · [Next](02_time.md)

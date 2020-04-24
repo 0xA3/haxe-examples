@@ -21,7 +21,7 @@ class MainShader extends hxsl.Shader {
 		@:import h3d.shader.Base2d;
 
 		function fragment() {
-			pixelColor = vec4( 1, 0, 1, 1 );
+			pixelColor = vec4( abs( sin( time )), 0, 0, 1 );
 		}
 	}
 }

@@ -1,0 +1,6 @@
+-lib heaps
+-lib hldx
+-cp src
+-D analyzer-optimize
+-main Main
+--hl bin/app.hl
