@@ -11,5 +11,8 @@ Please make sure you know how to create and run an application in Heaps.
 A great resource to learn about shaders is [The Book of Shaders](https://thebookofshaders.com/). So how do their examples look in HXSL?
 
 
-### [01 "Hello World!"](01_hello_world.md)
-
+[01 "Hello World!"](01_hello_world.md)  
+[02 Time](02_time.md)  
+[03 FragCoord](03_frag_coord.md)  
+[04 Shaping functions](04_shaping_functions.md)  
+[05 Creation by Silexars](05_danguafer_creation_by_silexars.md)  

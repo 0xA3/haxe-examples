@@ -12,7 +12,6 @@ class Main extends hxd.App {
 		var shader = new MainShader( new h3d.Vector( s2d.width, s2d.height ));
 		bmp.addShader( shader );
 	}
-
 }
 
 class MainShader extends hxsl.Shader {

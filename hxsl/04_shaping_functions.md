@@ -1,8 +1,13 @@
-import h2d.Tile;
-import h2d.Bitmap;
 
+## 04 Shaping functions
+
+The examples [on this page](https://thebookofshaders.com/05/) display different interpolation types.
+
+The Main Class still stays the same.
+
+```haxe
 class Main extends hxd.App {
-
+	
 	static function main() {
 		new Main();
 	}
@@ -12,9 +17,12 @@ class Main extends hxd.App {
 		var shader = new MainShader();
 		bmp.addShader( shader );
 	}
-
 }
+```
+ 
+Let's start with linear interpolation.
 
+```haxe
 class MainShader extends hxsl.Shader {
 	
 	static var SRC = {
@@ -42,3 +50,13 @@ class MainShader extends hxsl.Shader {
 		}
 	}
 }
+```
+
+It gets a little bit more complex but the conversion form GLSL to HXSL is straightforward.
+
+We create the addition ```plot``` method inside of ```SRC``` and call it from ```fragment```.  
+
+The implementations for [exponential interpolation](05_exponential_interpolation/src/Main.hx), [step](06_step/src/Main.hx) and [smoothstep](07_smoothstep/src/Main.hx) are very similar.
+___
+
+[Previous](hxsl.md) ·  [Home](hxsl.md) · [Next]()

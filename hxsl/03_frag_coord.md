@@ -36,7 +36,7 @@ class MainShader extends hxsl.Shader {
 	}
 }
 ```
-
+The original shader divides ```gl_FragCoord``` by the pixel resolution. The ```Base2d``` shader provides a variable ```calculatedUV``` that already does this. I noticed however that the coordinates are mirrored vertically. We can correct this with the line ```calculatedUV.y = 1 - calculatedUV.y```.
 ___
 
-[Previous](hxsl.md) ·  [Home](hxsl.md) · [Next]()
+[Previous](hxsl.md) ·  [Home](hxsl.md) · [Next](04_shaping_functions.md)
