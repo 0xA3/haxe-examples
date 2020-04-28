@@ -36,6 +36,7 @@ class MainShader extends hxsl.Shader {
 	}
 }
 ```
+
 When compiling and running it should show an empty screen with a bright color. Great!
 
 Let's take a look at the shader code.  

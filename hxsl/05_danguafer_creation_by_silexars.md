@@ -84,17 +84,21 @@ public function new( iResolution:h3d.Vector ) {
 There are a bunch of assignments and calculations and a ```for``` loop.
 
 In GLSL you can assign and access vector data by index position ```c[i]=...``` I couldn't find a way to do this in HXSL.
-Therefore I translated the line 
+Therefore I translated the line
+
 ```glsl
 c[i]=.01/length(abs(mod(uv,1.)-.5));
 ```
+
 in the original code to
+
 ```haxe
 var result = .01 / length( mod( uv, 1 ) -.5 );
 if( i == 0 ) c.r = result;
 if( i == 1 ) c.g = result;
 if( i == 2 ) c.b = result;
 ```
+
 which is sadly not very elegant but it works.  
 
 If you know how to do this in a better way, please tell me.
