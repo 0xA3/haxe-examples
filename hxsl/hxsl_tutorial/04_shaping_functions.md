@@ -56,7 +56,7 @@ It gets a little bit more complex but the conversion form GLSL to HXSL is straig
 
 We create the addition ```plot``` method inside of ```SRC``` and call it from ```fragment```.  
 
-The implementations for [exponential interpolation](05_exponential_interpolation/src/Main.hx), [step](06_step/src/Main.hx) and [smoothstep](07_smoothstep/src/Main.hx) are very similar.
+The implementations for [exponential interpolation](../book_of_shaders_examples/05_exponential_interpolation/src/Main.hx), [step](../book_of_shaders_examples/06_step/src/Main.hx) and [smoothstep](../book_of_shaders_examples/07_smoothstep/src/Main.hx) are very similar.
 ___
 
-[Previous](hxsl.md) ·  [Home](hxsl.md) · [Next]()
+[Previous](03_frag_coord.md) ·  [Home](hxsl.md) · [Next](05_danguafer_creation_by_silexars.md)

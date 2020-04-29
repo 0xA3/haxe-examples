@@ -38,4 +38,4 @@ You can see that the shader code is again pretty similar to the original. We can
 
 ___
 
-[Previous](hxsl.md) ·  [Home](hxsl.md) · [Next](03_frag_coord.md)
+[Previous](01_hello_world.md) ·  [Home](hxsl.md) · [Next](03_frag_coord.md)

@@ -105,4 +105,4 @@ If you know how to do this in a better way, please tell me.
 
 ___
 
-[Previous](hxsl.md) ·  [Home](hxsl.md) · [Next]()
+[Previous](04_shaping_functions.md) ·  [Home](hxsl.md) · [Next](hxsl.md)
