@@ -1,0 +1,7 @@
+-lib heaps
+-lib hldx
+-cp src
+-D analyzer-optimize
+-D windowSize=400x400
+-main Main
+--hl bin/app.hl
