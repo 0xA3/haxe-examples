@@ -22,7 +22,22 @@ class MainShader extends hxsl.Shader {
 		
 		@param var iResolution : Vec2;
 		
-		function rotate2d( st:Vec2, angle:Float ):Vec2 {
+		// rotate2d_1 with Mat2
+		// function rotate2d_1( angle:Float ):Mat2 {
+		// 	return 	mat2(	cos(angle), -sin(angle),
+		// 		        	sin(angle),cos(angle)); 
+		// }
+
+		// rotate2d_2 with Mat3
+		function rotate2d_2( angle:Float ):Mat3 {
+			return 	mat3(
+				vec3( cos(angle), -sin(angle), 0 ),
+				vec3( sin(angle), cos(angle), 0 ),
+				vec3( 0, 0, 1 ));
+		}
+
+		// rotate2d_2 manually calculates the new angle
+		function rotate2d_3( st:Vec2, angle:Float ):Vec2 {
 			var x = st.x;
 			var y = st.y;
 			
@@ -56,7 +71,16 @@ class MainShader extends hxsl.Shader {
 			st -= vec2( .5 );
 
 			// rotate the space
-			st = rotate2d( st, sin( time ) * PI );
+			
+			// rotate2d_1 with Mat2
+			// st = rotate2d_1( sin( time ) * PI ) * st; // Error: Unsupported type Mat2
+			
+			// rotate2d_2 uses Mat3
+			// var st3 = rotate2d_2( sin( time ) * PI ) * vec3( st, 1 ); // Error: Cannot multiply Mat3 and Vec3
+			// st = st3.xy;
+			
+			// rotate2d_3 manually calculates the values
+			st = rotate2d_3( st, sin( time ) * PI );
 
 			// move it back to the original place
 			st += vec2( .5 );
