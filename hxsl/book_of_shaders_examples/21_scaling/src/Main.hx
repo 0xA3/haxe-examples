@@ -22,7 +22,12 @@ class MainShader extends hxsl.Shader {
 		
 		@param var iResolution : Vec2;
 		
-		function scale( st:Vec2, scaleFactor:Vec2 ):Vec2 {
+		function scale( scaleFactor:Vec2 ):Mat2 {
+			return mat2( 	scaleFactor.x, 0.0,
+							0.0, scaleFactor.y );
+		}
+
+		function scale2( st:Vec2, scaleFactor:Vec2 ):Vec2 {
 			st.x *= scaleFactor.x;
 			st.y *= scaleFactor.y;
 
@@ -53,7 +58,8 @@ class MainShader extends hxsl.Shader {
 			st -= vec2( .5 );
 
 			// scale the space
-			st = scale( st, vec2( sin( time ) + 1 ));
+			// st = scale( vec2( sin( time ) + 1 )) * st;
+			st = scale2( st, vec2( sin( time ) + 1 ));
 
 			// move it back to the original place
 			st += vec2( .5 );

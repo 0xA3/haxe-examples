@@ -1,14 +1,16 @@
 
-## 01 "Hello World!"
+# 01 "Hello World!"
 
-The [first example](https://thebookofshaders.com/02/) from The Book of Shaders just displays a single color on the screen. 
+The [first example](https://thebookofshaders.com/02/) from The Book of Shaders just displays a single color on the screen.
 
-To recreate that in Heaps we first create a new application with an init method. The ```init``` method creates a new 
-fullscreen bitmap and adds the class ```MainShader```.
+To recreate that in Heaps we first create a new application with an init method. The ```init``` method creates a new fullscreen bitmap and adds the class ```MainShader```.
 
 ```haxe
+import h2d.Tile;
+import h2d.Bitmap;
+
 class Main extends hxd.App {
-	
+
 	static function main() {
 		new Main();
 	}
@@ -20,13 +22,13 @@ class Main extends hxd.App {
 	}
 }
 ```
- 
+
 We create a new class MainShader that extends hxsl.Shader.  
 A shader class only has one static variable SRC that contains all the code for the shader.
 
 ```haxe
 class MainShader extends hxsl.Shader {
-	
+
 	static var SRC = {
 		@:import h3d.shader.Base2d;
 
@@ -46,7 +48,7 @@ First we have an import statement. It imports useful parameters from a predefine
 @:import h3d.shader.Base2d;
 ```
 
-Then we have the fragment method. Here we set the variable ```pixelColor``` which corresponds to ```gl_FragColor``` in the original code. One advantage of HXSL is that we don't have to use float values for vec4. The compiler converts them automatically. 
+Then we have the fragment method. Here we set the variable ```pixelColor``` which corresponds to ```gl_FragColor``` in the original code. One advantage of HXSL is that we don't have to use float values for vec4. The compiler converts them automatically.
 
 ```haxe
 function fragment() {

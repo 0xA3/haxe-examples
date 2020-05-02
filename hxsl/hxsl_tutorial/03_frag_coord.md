@@ -1,13 +1,16 @@
 
-## 03 FragCoord
+# 03 FragCoord
 
-The [third example](https://thebookofshaders.com/03/) from The Book of Shaders assigns the screen coordinates to colors. 
+The [third example](https://thebookofshaders.com/03/) from The Book of Shaders assigns the screen coordinates to colors.
 
 The Main Class for this example is the same as in the previous example.
 
 ```haxe
+import h2d.Tile;
+import h2d.Bitmap;
+
 class Main extends hxd.App {
-	
+
 	static function main() {
 		new Main();
 	}
@@ -19,12 +22,12 @@ class Main extends hxd.App {
 	}
 }
 ```
- 
+
 This is the shader code.
 
 ```haxe
 class MainShader extends hxsl.Shader {
-	
+
 	static var SRC = {
 		@:import h3d.shader.Base2d;
 

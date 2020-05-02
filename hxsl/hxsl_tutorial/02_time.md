@@ -1,13 +1,16 @@
 
-## 02 Time
+# 02 Time
 
-The [second example](https://thebookofshaders.com/03/) from The Book of Shaders animates the color on the screen. 
+The [second example](https://thebookofshaders.com/03/) from The Book of Shaders animates the color on the screen.
 
 The Main Class for this example is the same as in Hello World.
 
 ```haxe
+import h2d.Tile;
+import h2d.Bitmap;
+
 class Main extends hxd.App {
-	
+
 	static function main() {
 		new Main();
 	}
@@ -19,12 +22,12 @@ class Main extends hxd.App {
 	}
 }
 ```
- 
+
 This is the shader code.
 
 ```haxe
 class MainShader extends hxsl.Shader {
-	
+
 	static var SRC = {
 		@:import h3d.shader.Base2d;
 
@@ -34,6 +37,7 @@ class MainShader extends hxsl.Shader {
 	}
 }
 ```
+
 You can see that the shader code is again pretty similar to the original. We can use ```abs``` and ```sin```. And we don't need to declare a variable to get access to the time. It is already done in ```Base2d``` and is simply called ```time```.
 
 ___

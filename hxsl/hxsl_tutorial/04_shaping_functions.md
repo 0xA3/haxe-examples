@@ -1,13 +1,16 @@
 
-## 04 Shaping functions
+# 04 Shaping functions
 
 The examples [on this page](https://thebookofshaders.com/05/) display different interpolation types.
 
 The Main Class still stays the same.
 
 ```haxe
+import h2d.Tile;
+import h2d.Bitmap;
+
 class Main extends hxd.App {
-	
+
 	static function main() {
 		new Main();
 	}
@@ -19,12 +22,12 @@ class Main extends hxd.App {
 	}
 }
 ```
- 
+
 Let's start with linear interpolation.
 
 ```haxe
 class MainShader extends hxsl.Shader {
-	
+
 	static var SRC = {
 		@:import h3d.shader.Base2d;
 
@@ -37,11 +40,11 @@ class MainShader extends hxsl.Shader {
 		function fragment() {
 			calculatedUV.y = 1 - calculatedUV.y;
 			var st = calculatedUV.xy;
-			
+
 			var y = st.x;
 
 			var color = vec3( y );
-			
+
 			// Plot a line
 			var pct = plot( st, y );
 			color = ( 1 - pct ) * color + pct * vec3( 0, 1, 0 );
