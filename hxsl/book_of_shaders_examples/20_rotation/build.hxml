@@ -1,5 +1,6 @@
 -lib heaps
 -lib hldx
+# -lib hlsdl
 -cp src
 -D analyzer-optimize
 -D windowSize=400x400
