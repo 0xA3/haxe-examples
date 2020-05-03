@@ -22,22 +22,12 @@ class MainShader extends hxsl.Shader {
 		
 		@param var iResolution : Vec2;
 		
-		function fragment() {
-			
-			// YUV to RGB matrix
-			var yuv2rgb = mat3(
-				vec3( 1, 0, 1.13983 ),
-				vec3( 1 , -0.39465, -0.58060 ),
-				vec3( 1, 2.03211, 0 )
-			);
+		function circle( st:Vec2, radius:Float ):Float {
+			var l = st - vec2( 0.5 );
+			return 1 - smoothstep( radius - ( radius * .01 ), radius + ( radius * .01), dot( l, l ) * 4 );
+		}
 
-			// RGB to YUV matrix
-			var rgb2yuv = mat3(
-				vec3( 0.2126, 0.7152, 0.0722 ),
-				vec3( -0.09991, -0.33609, 0.43600 ),
-				vec3( 0.615, -0.5586, -0.05639 )
-			);
-			
+		function fragment() {
 			calculatedUV.y = 1 - calculatedUV.y; // Flip y axis
 			// calculatedUV -= 0.5; // move 0 0 to center of screen
 			calculatedUV.x *= iResolution.x / iResolution.y; // remove width height distortion
@@ -46,16 +36,13 @@ class MainShader extends hxsl.Shader {
 			
 			var color = vec3( 0 );
 			
-			// UV values goes from -1 to 1
-			// So we need to remap st (0.0 to 1.0)
-			st -= 0.5; // becomes -0.5 to 0.5
-			st *= 2.0; // becomes -1.0 to 1.0
+			st *= 3;			// Scale up the space by 3
+			st = fract( st );	// Wrap arround 1.0
 
-			// we pass st as the y & z values of
-			// a three dimensional vector to be
-			// properly multiply by a 3x3 matrix
-			
-			color = yuv2rgb * vec3( 0.5, st.x, st.y ); // Error: Cannot multiply Mat3 and Vec3 - wait for new Heaps version
+			// Now we have 3 spaces that goes from 0-1
+
+			// color = vec3( st, 0 );
+			color = vec3( circle( st, 0.5 ));
 
 			pixelColor = vec4( color, 1 );
 		}

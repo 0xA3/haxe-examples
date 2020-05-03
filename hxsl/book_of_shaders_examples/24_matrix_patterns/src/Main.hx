@@ -22,40 +22,47 @@ class MainShader extends hxsl.Shader {
 		
 		@param var iResolution : Vec2;
 		
-		function fragment() {
+		function rotate2d( st:Vec2, angle:Float ):Vec2 {
+			st -= 0.5;
 			
-			// YUV to RGB matrix
-			var yuv2rgb = mat3(
-				vec3( 1, 0, 1.13983 ),
-				vec3( 1 , -0.39465, -0.58060 ),
-				vec3( 1, 2.03211, 0 )
-			);
+			var x = st.x;
+			var y = st.y;
+			st.x = x * cos( angle ) - y * sin( angle );
+			st.y = x * sin( angle ) + y * cos( angle );
 
-			// RGB to YUV matrix
-			var rgb2yuv = mat3(
-				vec3( 0.2126, 0.7152, 0.0722 ),
-				vec3( -0.09991, -0.33609, 0.43600 ),
-				vec3( 0.615, -0.5586, -0.05639 )
-			);
-			
+			st += 0.5;
+			return st;
+		}
+
+		function tile( st:Vec2, zoom:Float ):Vec2 {
+			st *= zoom;
+			return fract( st );
+		}
+
+		function box( st:Vec2, size:Vec2, smoothEdges:Float ):Float {
+			size = vec2( .5 ) - size * .5;
+			var aa = vec2( smoothEdges * .5 );
+			var uv = smoothstep( size, size + aa, st );
+			uv *= smoothstep( size, size + aa, vec2( 1 ) - st );
+			return uv.x * uv.y;
+		}
+
+		function fragment() {
 			calculatedUV.y = 1 - calculatedUV.y; // Flip y axis
 			// calculatedUV -= 0.5; // move 0 0 to center of screen
 			calculatedUV.x *= iResolution.x / iResolution.y; // remove width height distortion
 			
 			var st = calculatedUV.xy;
-			
 			var color = vec3( 0 );
 			
-			// UV values goes from -1 to 1
-			// So we need to remap st (0.0 to 1.0)
-			st -= 0.5; // becomes -0.5 to 0.5
-			st *= 2.0; // becomes -1.0 to 1.0
-
-			// we pass st as the y & z values of
-			// a three dimensional vector to be
-			// properly multiply by a 3x3 matrix
+			// Divide the space in 4
+			st = tile( st, 4 );
 			
-			color = yuv2rgb * vec3( 0.5, st.x, st.y ); // Error: Cannot multiply Mat3 and Vec3 - wait for new Heaps version
+			// Use a matrix to rotate the space 45 degrees
+			st = rotate2d( st, PI * .25 );
+
+			// Draw a square
+			color = vec3( box( st, vec2( 0.7 ), .01 ));
 
 			pixelColor = vec4( color, 1 );
 		}
