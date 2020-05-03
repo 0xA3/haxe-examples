@@ -3,7 +3,7 @@
 
 Now back to some more basic stuff: Translation, rotation and scaling with [2D Matrices](https://thebookofshaders.com/08/).
 
-The shader for translation is very much like the glsl code.
+Nothing surprising in the shader for translation.
 
 ```haxe
 import h2d.Tile;
@@ -71,7 +71,7 @@ class MainShader extends hxsl.Shader {
 }
 ```
 
-The rotation and scale examples are done with a 2D Matrix. This should also be pretty straightforward to do in HXSL.
+The rotation and scaling examples are done with a 2D Matrix. This should also be pretty straightforward to do in HXSL.
 
 I was a little surprised when rotation shader code did not compile with the error message ```Unsupported type Mat2```.
 
