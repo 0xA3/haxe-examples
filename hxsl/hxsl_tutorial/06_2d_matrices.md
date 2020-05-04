@@ -75,7 +75,7 @@ The rotation and scaling examples are done with a 2D Matrix. This should also be
 
 I was a little surprised when rotation shader code did not compile with the error message ```Unsupported type Mat2```.
 
-After browsing through the sourcecode I discovered that the 2D matrix type ist actually not implemented. I guess it never came up in previous projects or just wasn't that important.
+After browsing through the sourcecode I discovered that the 2D matrix type ist actually not implemented. I think this is because the Flash shader language AGAL doesn't support it.
 
  I rewrote the rotate2d method to directly calculate the resulting vector. I will update this tutorial when Mat2 is implemented in one of the next Heaps versions.
 
@@ -242,4 +242,4 @@ class MainShader extends hxsl.Shader {
 
 ___
 
-[Previous](05_danguafer_creation_by_silexars.md) ·  [Home](hxsl.md) · [Next](hxsl.md)
+[Previous](05_danguafer_creation_by_silexars.md) ·  [Home](hxsl.md) · [Next](07_color_transformation.md)
