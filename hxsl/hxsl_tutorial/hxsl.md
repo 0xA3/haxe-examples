@@ -25,7 +25,7 @@ A great resource to learn about shaders is [The Book of Shaders](https://thebook
 
 | | GLSL | HXSL (with ```@:import h3d.shader.Base2d```)
 |-|:-----|:-----
-| default input coordinates | ```gl_FragCoord``` (position 0,0 at left bottom) | ```calculatedUV``` (range 0-1, position 0,0 at left top) 
+| default input coordinates | ```gl_FragCoord``` (position 0,0 at left bottom) | ```calculatedUV``` (range 0-1, position 0,0 at left top)
 | final pixel color | ```gl_FragColor``` | ```pixelColor``` |
 | screen resolution | ```u_resolution``` | custom
 | time | ```u_time``` | ```time```
@@ -40,6 +40,6 @@ A great resource to learn about shaders is [The Book of Shaders](https://thebook
 | vector array access | ```name[1]``` | not available yet
 | create 2d matrix | ```mat2(1., 2., 3., 4.)``` | not available yet
 | create 3d matrix | ```mat2(1., 2., 3., 4., 5., 6., 7., 8., 9.)``` | ```mat3(vec3(1., 2., 3.), vec3(4., 5., 6.), vec3( 7., 8., 9.))```
-| vector x matrix | ```v x m``` | ```v x m```
-| matrix x vector | ```m x v``` | not available - transpose matix and use v x m
+| vector × matrix | ```v × m``` | ```v × m```
+| matrix × vector | ```m × v``` | not available - transpose matix and use v × m
 | function definition | ```vec4 red() { ... }``` | ```function red():Vec4 { ... }```
