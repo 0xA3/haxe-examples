@@ -171,7 +171,8 @@ function main() {
 	final r1 = getValue( "Hello", Std.random( 500 ));
 	final r2 = getValue( "World!", Std.random( 500 ));
 
-	r1.merge( r2, ( s1, s2 ) -> trace( s1 + " " + s2 ));
+	final r12 = r1.merge( r2, ( s1, s2 ) -> s1 + " " + s2 );
+	r12.handle( s -> trace( s ));
 }
 
 function getValue( message:String, delay:Int ) {
@@ -179,7 +180,7 @@ function getValue( message:String, delay:Int ) {
 }
 ```
 
-Merges the two results should give this result. But doesn't work in tink_core 2.0.2
+Merges the two results. Note: Futures are lazy by default in tink_core 2.0. That means it only tries to fetch the result if there is a handle function call.
 
 ```bash
 src/Main.hx:11: Hello World!
