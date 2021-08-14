@@ -1,4 +1,5 @@
 import haxe.Timer;
+
 using tink.CoreApi;
 
 function main() {
