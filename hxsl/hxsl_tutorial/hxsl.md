@@ -6,7 +6,7 @@ When I first learned that Heaps has it's own shader language I was sceptical. Of
 
 Well, turns out it's pretty easy.  
 
-To try out my examples, first install the [Heaps Game Engine](https://heaps.io/). I used version 1.8.. In newer versions there may be differences.  
+To try out my examples, first install the [Heaps Game Engine](https://heaps.io/). I used version 1.8. In newer versions there may be differences.  
 Please make sure you know [how to create and run Heaps applications](https://heaps.io/documentation/getting-started.html) first.
 
 A great resource to learn about shaders is [The Book of Shaders](https://thebookofshaders.com/). So let's see how their examples are done in HXSL.
