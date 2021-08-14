@@ -341,3 +341,150 @@ The output is
 src/Main.hx:8: Joy is a success
 src/Main.hx:9: Fifi Trixiebell is a failure
 ```
+
+## 13 Trigger
+
+To create custom Futures there is a helper class FutureTrigger. First we recreate example 02 with Future.trigger();
+
+```haxe
+import haxe.Timer;
+
+using tink.CoreApi;
+
+function main() {
+	getValue( "World!", 500 ).handle( s -> trace( s ));
+	getValue( "Hello", 250 ).handle( s -> trace( s ));
+}
+
+function getValue( message:String, delay:Int ) {
+	final f = Future.trigger();
+	Timer.delay(() -> f.trigger( message ), delay );
+	return f.asFuture();
+}
+```
+
+As expected, the output is
+
+```bash
+src/Main.hx:8: Hello
+src/Main.hx:7: World!
+```
+
+## 14 Async Trigger
+
+Now let's create a class with multiple async operations.
+
+```haxe
+import haxe.Timer;
+
+using tink.CoreApi;
+
+class Loop {
+
+	final max:Int;
+
+	var counter = 0;
+	var f:FutureTrigger<Noise>;
+
+	public function new( max:Int ) {
+		this.max = max;
+	}
+
+	public function start() {
+		f = Future.trigger();
+		next();
+		return f.asFuture();
+	}
+
+	public function next() {
+		trace( counter );
+		counter++;
+		Timer.delay(() -> if( counter < max ) next() else f.trigger( Noise ), 500 );
+	}
+}
+```
+
+```haxe
+using tink.CoreApi;
+
+function main() {
+
+	final loop = new Loop( 3 );
+	final future = loop.start();
+	future.handle( s -> trace( 'finished' ));
+}
+```
+
+So after getting a new instance of the Loop class, the method start() is called which causes a loop of 3 delays. When the loops are finished the Future is resolved.
+
+```bash
+src/Loop.hx:23: 0
+src/Loop.hx:23: 1
+src/Loop.hx:23: 2
+src/Main.hx:7: finished
+```
+
+## 14 Multiple Async Triggers
+
+Here a more complex version in which 2 loops are started simultaneously with different delays.
+
+```haxe
+import haxe.Timer;
+
+using tink.CoreApi;
+
+class Loop {
+
+	final id:String;
+	final delay:Int;
+	final max:Int;
+
+	var counter = 0;
+	var f:FutureTrigger<Noise>;
+
+	public function new( id:String, delay:Int, max:Int ) {
+		this.id = id;
+		this.delay = delay;
+		this.max = max;
+	}
+
+	public function start() {
+		f = Future.trigger();
+		next();
+		return f.asFuture();
+	}
+
+	public function next() {
+		trace( '$id: $counter' );
+		counter++;
+		Timer.delay(() -> if( counter < max ) next() else f.trigger( Noise ), delay );
+	}
+}
+```
+
+```haxe
+using tink.CoreApi;
+
+function main() {
+
+	final loop1 = new Loop( "loop 1", 500, 2 );
+	final future1 = loop1.start();
+
+	final loop2 = new Loop( "loop 2", 200, 4 );
+	final future2 = loop2.start();
+	
+	Future.inSequence( [future1, future2] ).handle( s -> trace( 'finished' ));
+}
+```
+
+Loop 2 has a shorter delay, so it loops faster. We can combine future1 and future2 with the inSequence method and handle them together.
+
+```bash
+src/Loop.hx:27: loop 1: 0
+src/Loop.hx:27: loop 2: 0
+src/Loop.hx:27: loop 2: 1
+src/Loop.hx:27: loop 2: 2
+src/Loop.hx:27: loop 1: 1
+src/Loop.hx:27: loop 2: 3
+src/Main.hx:11: finished
+```
