@@ -187,7 +187,7 @@ src/Main.hx:11: Hello World!
 
 ## 08 Map and composition
 
-One advantage of futures is that we can combine all the functionality and still get consistent results. Here an example with multiple maps and ofMany
+One advantage of futures is that we can combine all the functionality and still get consistent results. Here an example with multiple maps and inSequence
 
 ```haxe
 import haxe.Timer;
@@ -213,7 +213,7 @@ And the output is
 src/Main.hx:15: h.... WORLD!
 ```
 
-## 09 Multiple ofMany
+## 09 Multiple inSequence
 
 ```haxe
 import haxe.Timer;
