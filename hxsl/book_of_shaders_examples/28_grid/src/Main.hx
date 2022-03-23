@@ -31,9 +31,16 @@ class MainShader extends hxsl.Shader {
 			calculatedUV.x *= iResolution.x / iResolution.y; // remove width height distortion
 			var st = calculatedUV.xy;
 
-			var rnd = random( st );
-
-			var color = vec3( rnd );
+			st *= 10; // Scale the coordinate system by 10
+			var ipos = floor( st ); // get the integer coords
+			var fpos = fract( st ); // get the fractional coords
+			
+			// Assign a random value based on the integer coord
+			var color = vec3( random( ipos ) );
+			
+			// Uncomment to see the subdivided grid
+			// color = vec3(fpos,0.0);
+			
 			pixelColor = vec4( color, 1 );
 		}
 	}
