@@ -26,7 +26,7 @@ class MainShader extends hxsl.Shader {
 		// function rotate2d_1( angle:Float ):Mat2 {
 		// 	return 	mat2(
 		// 		cos(angle), -sin(angle),
-		// 		sin(angle), cos(angle)); 
+		// 		sin(angle), cos(angle));
 		// }
 
 		// rotate2d_2 with Mat3
