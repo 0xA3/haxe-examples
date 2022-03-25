@@ -48,10 +48,9 @@ class MainShader extends hxsl.Shader {
 			// Mix 4 coorners percentages
 
 			return mix( a, b, u.x ) +
-					(c - a)* u.y * (1.0 - u.x) +
-					(d - b) * u.x * u.y;
+					( c - a ) * u.y * ( 1.0 - u.x ) +
+					( d - b ) * u.x * u.y;
 		}
-
 
 		function fragment() {
 			calculatedUV.y = 1 - calculatedUV.y; // Flip y axis
